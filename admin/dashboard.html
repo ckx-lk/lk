@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台管理 - 广东兰凯律师事务所</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <h4>兰凯律所后台</h4>
+                <p>广东兰凯律师事务所</p>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="dashboard.html" class="active"><span class="icon">&#9632;</span> 控制台</a></li>
+                <li><a href="articles.html"><span class="icon">&#9632;</span> 文章管理</a></li>
+                <li><a href="lawyers.html"><span class="icon">&#9632;</span> 律师管理</a></li>
+                <li><a href="columns.html"><span class="icon">&#9632;</span> 栏目管理</a></li>
+                <li><a href="settings.html"><span class="icon">&#9632;</span> 网站设置</a></li>
+                <li><a href="javascript:void(0)" onclick="logout()"><span class="icon">&#9632;</span> 退出登录</a></li>
+            </ul>
+        </aside>
+
+        <main class="admin-main">
+            <div class="admin-header">
+                <h4>控制台</h4>
+                <div class="user-info">
+                    <span>管理员</span>
+                    <a href="javascript:void(0)" onclick="logout()">退出</a>
+                </div>
+            </div>
+
+            <div class="admin-content">
+                <div class="stat-cards">
+                    <div class="stat-card">
+                        <h5>文章总数</h5>
+                        <div class="number" id="articleCount">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h5>律师人数</h5>
+                        <div class="number" id="lawyerCount">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h5>栏目数量</h5>
+                        <div class="number" id="menuCount">7</div>
+                    </div>
+                    <div class="stat-card">
+                        <h5>系统版本</h5>
+                        <div class="number" style="font-size:18px;">v1.0</div>
+                    </div>
+                </div>
+
+                <div style="background:#fff; border:1px solid #e0e0e0; padding:25px; margin-bottom:20px;">
+                    <h4 style="margin-bottom:20px; color:#333; font-weight:500;">最新文章</h4>
+                    <table class="data-table" id="recentArticles">
+                        <thead>
+                            <tr>
+                                <th>标题</th>
+                                <th>栏目</th>
+                                <th>日期</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+                <div style="background:#fff; border:1px solid #e0e0e0; padding:25px;">
+                    <h4 style="margin-bottom:20px; color:#333; font-weight:500;">快捷操作</h4>
+                    <div style="display:flex; gap:15px; flex-wrap:wrap;">
+                        <a href="articles.html?action=add" class="btn btn-primary">发布文章</a>
+                        <a href="lawyers.html?action=add" class="btn btn-primary">添加律师</a>
+                        <a href="columns.html" class="btn btn-secondary">栏目管理</a>
+                        <a href="settings.html" class="btn btn-secondary">网站设置</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/admin.js"></script>
+    <script>
+        checkLogin();
+        initDashboard();
+    </script>
+</body>
+</html>

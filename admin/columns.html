@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>栏目管理 - 广东兰凯律师事务所</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <h4>兰凯律所后台</h4>
+                <p>广东兰凯律师事务所</p>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="dashboard.html"><span class="icon">&#9632;</span> 控制台</a></li>
+                <li><a href="articles.html"><span class="icon">&#9632;</span> 文章管理</a></li>
+                <li><a href="lawyers.html"><span class="icon">&#9632;</span> 律师管理</a></li>
+                <li><a href="columns.html" class="active"><span class="icon">&#9632;</span> 栏目管理</a></li>
+                <li><a href="settings.html"><span class="icon">&#9632;</span> 网站设置</a></li>
+                <li><a href="javascript:void(0)" onclick="logout()"><span class="icon">&#9632;</span> 退出登录</a></li>
+            </ul>
+        </aside>
+
+        <main class="admin-main">
+            <div class="admin-header">
+                <h4>栏目管理</h4>
+                <div class="user-info">
+                    <span>管理员</span>
+                    <a href="javascript:void(0)" onclick="logout()">退出</a>
+                </div>
+            </div>
+
+            <div class="admin-content">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                    <p style="color:#999; font-size:14px;">管理网站导航栏目，支持添加、删除、排序。系统栏目不可删除。</p>
+                    <button class="btn btn-primary" onclick="showColumnForm()">+ 添加栏目</button>
+                </div>
+
+                <div id="columnList"></div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/admin.js"></script>
+    <script>
+        checkLogin();
+        initColumns();
+    </script>
+</body>
+</html>

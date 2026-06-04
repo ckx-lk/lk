@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章管理 - 广东兰凯律师事务所</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <h4>兰凯律所后台</h4>
+                <p>广东兰凯律师事务所</p>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="dashboard.html"><span class="icon">&#9632;</span> 控制台</a></li>
+                <li><a href="articles.html" class="active"><span class="icon">&#9632;</span> 文章管理</a></li>
+                <li><a href="lawyers.html"><span class="icon">&#9632;</span> 律师管理</a></li>
+                <li><a href="columns.html"><span class="icon">&#9632;</span> 栏目管理</a></li>
+                <li><a href="settings.html"><span class="icon">&#9632;</span> 网站设置</a></li>
+                <li><a href="javascript:void(0)" onclick="logout()"><span class="icon">&#9632;</span> 退出登录</a></li>
+            </ul>
+        </aside>
+
+        <main class="admin-main">
+            <div class="admin-header">
+                <h4>文章管理</h4>
+                <div class="user-info">
+                    <span>管理员</span>
+                    <a href="javascript:void(0)" onclick="logout()">退出</a>
+                </div>
+            </div>
+
+            <div class="admin-content">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
+                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                        <select id="filterCategory" onchange="filterArticles()" style="padding:8px 12px; border:1px solid #ddd; border-radius:4px; font-size:14px;">
+                            <option value="">全部栏目</option>
+                            <option value="新闻中心">新闻中心</option>
+                            <option value="兰凯研究">兰凯研究</option>
+                            <option value="兰凯党建">兰凯党建</option>
+                        </select>
+                        <input type="text" id="searchKeyword" placeholder="搜索文章标题..." onkeyup="searchArticles()" style="padding:8px 12px; border:1px solid #ddd; border-radius:4px; width:220px; font-size:14px; outline:none;">
+                    </div>
+                    <button class="btn btn-primary" onclick="showArticleForm()">+ 发布文章</button>
+                </div>
+
+                <div id="articleList" style="background:#fff; border:1px solid #e0e0e0; padding:25px;">
+                    <table class="data-table" id="articlesTable">
+                        <thead>
+                            <tr>
+                                <th style="width:45%;">标题</th>
+                                <th>栏目</th>
+                                <th>日期</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+                <!-- 文章编辑表单 -->
+                <div id="articleForm" style="display:none; margin-top:20px;">
+                    <div class="admin-form">
+                        <h4 style="margin-bottom:25px;" id="formTitle">发布文章</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>文章标题 <span style="color:#c62828;">*</span></label>
+                                <input type="text" id="articleTitle" placeholder="请输入文章标题">
+                            </div>
+                            <div class="form-group">
+                                <label>所属栏目 <span style="color:#c62828;">*</span></label>
+                                <select id="articleCategory">
+                                    <option value="新闻中心">新闻中心</option>
+                                    <option value="兰凯研究">兰凯研究</option>
+                                    <option value="兰凯党建">兰凯党建</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>文章摘要</label>
+                            <textarea id="articleSummary" placeholder="请输入文章摘要（选填，用于列表页展示）" style="min-height:80px;"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>发布日期 <span style="color:#c62828;">*</span></label>
+                            <input type="date" id="articleDate">
+                        </div>
+                        <div class="form-group">
+                            <label>文章内容 <span style="color:#c62828;">*</span></label>
+                            <textarea id="articleContent" placeholder="请输入文章正文内容" style="min-height:250px;"></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn btn-primary" onclick="saveArticle()">保存文章</button>
+                            <button class="btn btn-secondary" onclick="hideArticleForm()">取消</button>
+                        </div>
+                        <input type="hidden" id="articleId">
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/admin.js"></script>
+    <script>
+        checkLogin();
+        initArticles();
+    </script>
+</body>
+</html>

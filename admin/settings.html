@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网站设置 - 广东兰凯律师事务所</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <h4>兰凯律所后台</h4>
+                <p>广东兰凯律师事务所</p>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="dashboard.html"><span class="icon">&#9632;</span> 控制台</a></li>
+                <li><a href="articles.html"><span class="icon">&#9632;</span> 文章管理</a></li>
+                <li><a href="lawyers.html"><span class="icon">&#9632;</span> 律师管理</a></li>
+                <li><a href="columns.html"><span class="icon">&#9632;</span> 栏目管理</a></li>
+                <li><a href="settings.html" class="active"><span class="icon">&#9632;</span> 网站设置</a></li>
+                <li><a href="javascript:void(0)" onclick="logout()"><span class="icon">&#9632;</span> 退出登录</a></li>
+            </ul>
+        </aside>
+
+        <main class="admin-main">
+            <div class="admin-header">
+                <h4>网站设置</h4>
+                <div class="user-info">
+                    <span>管理员</span>
+                    <a href="javascript:void(0)" onclick="logout()">退出</a>
+                </div>
+            </div>
+
+            <div class="admin-content">
+                <div class="admin-form">
+                    <h4 style="margin-bottom:25px; color:#4B0082; border-bottom:2px solid #4B0082; padding-bottom:10px;">首页Banner设置</h4>
+                    <div class="form-group">
+                        <label>Banner主标题</label>
+                        <input type="text" id="bannerTitle">
+                    </div>
+                    <div class="form-group">
+                        <label>Banner副标题</label>
+                        <textarea id="bannerSubtitle" style="min-height:80px;"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Banner背景图路径</label>
+                        <input type="text" id="bannerImage" placeholder="如：images/banner.jpg">
+                        <small>留空则使用默认紫色渐变背景</small>
+                    </div>
+
+                    <h4 style="margin:35px 0 25px; color:#4B0082; border-bottom:2px solid #4B0082; padding-bottom:10px;">联系方式设置</h4>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>微信公众号</label>
+                            <input type="text" id="siteWechat">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>办公地址</label>
+                        <input type="text" id="siteAddress">
+                    </div>
+                    <div class="form-group">
+                        <label>网站网址</label>
+                        <input type="text" id="siteUrl">
+                    </div>
+
+                    <h4 style="margin:35px 0 25px; color:#4B0082; border-bottom:2px solid #4B0082; padding-bottom:10px;">数据管理</h4>
+                    <div style="display:flex; gap:15px; flex-wrap:wrap;">
+                        <button class="btn btn-secondary" onclick="exportData()">导出数据</button>
+                        <button class="btn btn-secondary" onclick="resetData()">重置默认数据</button>
+                    </div>
+
+                    <div class="form-actions" style="margin-top:30px; border-top:1px solid #eee; padding-top:25px;">
+                        <button class="btn btn-primary" onclick="saveSettings()">保存设置</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/admin.js"></script>
+    <script>
+        checkLogin();
+        initSettings();
+
+        // 导出数据
+        window.exportData = function () {
+            var data = {
+                columns: JSON.parse(localStorage.getItem('lankai_columns') || '[]'),
+                articles: JSON.parse(localStorage.getItem('lankai_articles') || '[]'),
+                lawyers: JSON.parse(localStorage.getItem('lankai_lawyers') || '[]'),
+                settings: JSON.parse(localStorage.getItem('lankai_settings') || '{}')
+            };
+            var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'lankai_data_' + new Date().toISOString().split('T')[0] + '.json';
+            a.click();
+            showToast('数据导出成功');
+        };
+
+        // 重置默认数据
+        window.resetData = function () {
+            showConfirm('重置数据', '确定要重置所有数据为默认值吗？此操作不可撤销，自定义数据将丢失。', function () {
+                localStorage.removeItem('lankai_columns');
+                localStorage.removeItem('lankai_articles');
+                localStorage.removeItem('lankai_lawyers');
+                localStorage.removeItem('lankai_settings');
+                initSettings();
+                showToast('数据已重置为默认值');
+            });
+        };
+    </script>
+</body>
+</html>
