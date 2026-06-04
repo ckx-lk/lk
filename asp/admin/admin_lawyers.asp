@@ -70,7 +70,7 @@
             </div>
             <div class="form-group">
                 <label>职位</label>
-                <input type="text" name="position" value="<%= HtmlEncode(lPosition2) %>" style="width:100%;padding:10px;border:1px solid #ddd;" placeholder="如：合伙人、专职律师">
+                <input type="text" name="position" value="<%= HtmlEncode(lPosition2) %>" style="width:100%;padding:10px;border:1px solid #ddd;" placeholder="如：合伙人律师、专职律师">
             </div>
             <div class="form-group">
                 <label>专长领域（用顿号分隔）</label>

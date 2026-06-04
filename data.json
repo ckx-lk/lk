@@ -153,7 +153,7 @@
       "id": 1,
       "name": "彭大成",
       "photo": "images/peng_dacheng.jpg",
-      "position": "合伙人 / 资深律师",
+      "position": "合伙人律师",
       "specialties": ["民事诉讼", "合同纠纷", "公司法务"],
       "description": "擅长民事诉讼、合同纠纷、公司法务等领域，拥有丰富的办案经验。"
     },
@@ -161,7 +161,7 @@
       "id": 2,
       "name": "陈康祥",
       "photo": "images/chen_kangxiang.jpg",
-      "position": "合伙人 / 执业律师",
+      "position": "合伙人律师",
       "specialties": ["民事诉讼", "劳动争议", "交通事故"],
       "description": "广东财经大学信息学院校友，专注于民事诉讼、劳动争议、交通事故等领域。"
     },
@@ -169,7 +169,7 @@
       "id": 3,
       "name": "陈重维",
       "photo": "images/chen_chongwei.jpg",
-      "position": "合伙人 / 执业律师",
+      "position": "合伙人律师",
       "specialties": ["婚姻家庭", "继承纠纷", "知识产权"],
       "description": "擅长婚姻家庭、继承纠纷、知识产权等领域，专业细致，深受客户信赖。"
     }
