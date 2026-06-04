@@ -60,9 +60,9 @@
                 %>
             </div>
 
-            <!-- 执业律师 -->
+            <!-- 专职律师 -->
             <div class="section-subtitle" style="text-align:center;margin:40px 0 20px;">
-                <h3 style="color:var(--primary-purple);font-size:20px;">执业律师</h3>
+                <h3 style="color:var(--primary-purple);font-size:20px;">专职律师</h3>
             </div>
             <div class="team-grid fade-in">
                 <%
