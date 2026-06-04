@@ -57,7 +57,7 @@
   var DEFAULT_LAWYERS = [
     { id: 'law_1', name: '彭大成', position: '合伙人律师', photo: 'images/peng_dacheng.jpg', intro: '擅长民事诉讼、合同纠纷、公司法务等领域，拥有丰富的办案经验。', specialties: ['民事诉讼', '合同纠纷', '公司法务'] },
     { id: 'law_2', name: '陈康祥', position: '合伙人律师', photo: 'images/chen_kangxiang.jpg', intro: '丰富的企业管理经验，专注于企业法律顾问、民事诉讼、劳动争议、合同纠纷等领域。', specialties: ['企业法律顾问', '民事诉讼', '劳动争议', '合同纠纷'] },
-    { id: 'law_3', name: '陈重维', position: '合伙人律师', photo: 'images/chen_chongwei.jpg', intro: '擅长婚姻家庭、继承纠纷、知识产权等领域，专业细致，深受客户信赖。', specialties: ['婚姻家庭', '继承纠纷', '知识产权'] }
+    { id: 'law_3', name: '陈重维', position: '合伙人律师', photo: 'images/chen_chongwei.jpg', intro: '陈重维律师深耕刑事辩护、债务债权处置、商品房买卖及保理合同纠纷，凭借扎实的法律功底与丰富实务经验，为当事人提供精准专业的解决方案；曾任职于公安机关法制科，熟悉司法机关办案流程与逻辑；现担任房地产、保理等多个行业企业的常年法律顾问，深谙企业法律风险防控与商业纠纷处理，致力于为客户提供兼具法律严谨性与商业可行性的服务。', specialties: ['刑事辩护', '债务债权', '商品房买卖', '保理合同'] }
   ];
 
   var DEFAULT_SETTINGS = {
