@@ -56,7 +56,7 @@
 
   var DEFAULT_LAWYERS = [
     { id: 'law_1', name: '彭大成', position: '合伙人律师', photo: 'images/peng_dacheng.jpg', intro: '擅长民事诉讼、合同纠纷、公司法务等领域，拥有丰富的办案经验。', specialties: ['民事诉讼', '合同纠纷', '公司法务'] },
-    { id: 'law_2', name: '陈康祥', position: '合伙人律师', photo: 'images/chen_kangxiang.jpg', intro: '广东财经大学信息学院校友，专注于民事诉讼、劳动争议、交通事故等领域。', specialties: ['民事诉讼', '劳动争议', '交通事故'] },
+    { id: 'law_2', name: '陈康祥', position: '合伙人律师', photo: 'images/chen_kangxiang.jpg', intro: '丰富的企业管理经验，专注于企业法律顾问、民事诉讼、劳动争议、合同纠纷等领域。', specialties: ['企业法律顾问', '民事诉讼', '劳动争议', '合同纠纷'] },
     { id: 'law_3', name: '陈重维', position: '合伙人律师', photo: 'images/chen_chongwei.jpg', intro: '擅长婚姻家庭、继承纠纷、知识产权等领域，专业细致，深受客户信赖。', specialties: ['婚姻家庭', '继承纠纷', '知识产权'] }
   ];
 
