@@ -141,11 +141,16 @@
                 Do While Not rsNews.EOF
                 %>
                 <div class="news-card">
-                    <div class="news-date">
-                        <span class="day"><%= Day(rsNews("created_at")) %></span>
-                        <span class="month"><%= Month(rsNews("created_at")) %>月</span>
+                    <% If InStr(rsNews("title"), "实践基地") > 0 Then %>
+                    <div class="news-image">
+                        <img src="images/guocai_ceremony.jpg" alt="实践基地授牌仪式">
                     </div>
+                    <% End If %>
                     <div class="news-content">
+                        <div class="news-date">
+                            <span class="day"><%= Day(rsNews("created_at")) %></span>
+                            <span class="month"><%= Year(rsNews("created_at")) %>-<%= Right("0" & Month(rsNews("created_at")), 2) %></span>
+                        </div>
                         <h3><a href="news_detail.asp?id=<%= rsNews("id") %>"><%= HtmlEncode(rsNews("title")) %></a></h3>
                         <p><%= CutStr(rsNews("summary"), 80) %></p>
                     </div>

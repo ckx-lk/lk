@@ -447,8 +447,18 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-light);
-    font-size: 14px;
+    overflow: hidden;
+}
+
+.news-card .news-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.news-card:hover .news-image img {
+    transform: scale(1.03);
 }
 
 .news-card .news-content {
