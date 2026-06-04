@@ -33,6 +33,11 @@
                         <span class="day"><%= Day(rsNewsList("created_at")) %></span>
                         <span class="month"><%= Year(rsNewsList("created_at")) %>-<%= Right("0" & Month(rsNewsList("created_at")), 2) %></span>
                     </div>
+                    <% If InStr(rsNewsList("title"), "实践基地") > 0 Then %>
+                    <div class="news-thumb">
+                        <img src="images/guocai_ceremony.jpg" alt="实践基地授牌仪式">
+                    </div>
+                    <% End If %>
                     <div class="news-content">
                         <h3><a href="news_detail.asp?id=<%= rsNewsList("id") %>"><%= HtmlEncode(rsNewsList("title")) %></a></h3>
                         <p class="news-summary"><%= HtmlEncode(rsNewsList("summary")) %></p>
