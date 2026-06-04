@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>兰凯律所网站部署指引 - Vercel + 阿里云 DNS 配置</title>
+    <style>
+        :root {
+            --primary: #660874;
+            --primary-light: #8a2a9a;
+            --bg: #f8f6fa;
+            --card: #ffffff;
+            --text: #2d2d2d;
+            --text-light: #666;
+            --border: #e8e0ee;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+            padding: 20px;
+        }
+        .container { max-width: 860px; margin: 0 auto; }
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 40px;
+            font-size: 15px;
+        }
+        .phase {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 28px;
+        }
+        .phase-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--border);
+        }
+        .phase-num {
+            width: 42px; height: 42px;
+            background: var(--primary);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .phase-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .step {
+            margin-bottom: 24px;
+            padding-left: 18px;
+            border-left: 3px solid var(--border);
+        }
+        .step:last-child { margin-bottom: 0; }
+        .step-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+        .step-title .num {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        .step p, .step li {
+            color: var(--text-light);
+            font-size: 14.5px;
+        }
+        .step ul, .step ol {
+            padding-left: 20px;
+            margin-top: 6px;
+        }
+        .step li { margin-bottom: 4px; }
+
+        .dns-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+        .dns-table th {
+            background: var(--primary);
+            color: #fff;
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .dns-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+        .dns-table tr:last-child td { border-bottom: none; }
+        .dns-table tr:nth-child(even) { background: #faf8fc; }
+        .dns-table code {
+            background: #f0ebf4;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: "SF Mono", "Fira Code", Consolas, monospace;
+            font-size: 13.5px;
+            color: var(--primary);
+        }
+
+        .tip {
+            background: #f0f9ff;
+            border-left: 4px solid var(--info);
+            padding: 14px 18px;
+            border-radius: 0 8px 8px 0;
+            margin: 14px 0;
+            font-size: 13.5px;
+        }
+        .tip strong { color: var(--info); }
+
+        .warning {
+            background: #fffbeb;
+            border-left: 4px solid var(--warning);
+            padding: 14px 18px;
+            border-radius: 0 8px 8px 0;
+            margin: 14px 0;
+            font-size: 13.5px;
+        }
+        .warning strong { color: var(--warning); }
+
+        .success-box {
+            background: #f0fdf4;
+            border-left: 4px solid var(--success);
+            padding: 14px 18px;
+            border-radius: 0 8px 8px 0;
+            margin: 14px 0;
+            font-size: 13.5px;
+        }
+        .success-box strong { color: var(--success); }
+
+        .screenshot-hint {
+            background: #faf8fc;
+            border: 1px dashed var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 12px 0;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 13px;
+        }
+
+        .checklist {
+            list-style: none;
+            padding: 0;
+            margin: 12px 0;
+        }
+        .checklist li {
+            padding: 8px 0 8px 32px;
+            position: relative;
+            font-size: 14.5px;
+        }
+        .checklist li::before {
+            content: "☐";
+            position: absolute;
+            left: 6px;
+            color: var(--primary);
+            font-size: 16px;
+        }
+
+        .flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .flow-item {
+            background: var(--primary);
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .flow-arrow { color: var(--primary-light); font-size: 22px; }
+
+        @media (max-width: 600px) {
+            body { padding: 12px; }
+            .phase { padding: 20px; }
+            h1 { font-size: 22px; }
+            .dns-table { font-size: 13px; }
+            .dns-table th, .dns-table td { padding: 8px 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>兰凯律所网站部署指引</h1>
+        <p class="subtitle">www.lankai.net → Vercel 静态托管 · 阿里云 DNS 解析配置</p>
+
+        <div class="flow">
+            <div class="flow-item">GitHub 仓库</div>
+            <span class="flow-arrow">→</span>
+            <div class="flow-item">Vercel 部署</div>
+            <span class="flow-arrow">→</span>
+            <div class="flow-item">绑定域名</div>
+            <span class="flow-arrow">→</span>
+            <div class="flow-item">DNS 配置</div>
+            <span class="flow-arrow">→</span>
+            <div class="flow-item">网站上线 ✓</div>
+        </div>
+
+        <!-- 第一步 -->
+        <div class="phase">
+            <div class="phase-header">
+                <div class="phase-num">1</div>
+                <div class="phase-title">注册 Vercel 并导入项目</div>
+            </div>
+
+            <div class="step">
+                <div class="step-title"><span class="num">1.1</span> 注册 Vercel 账号</div>
+                <ul>
+                    <li>打开 <strong>vercel.com</strong></li>
+                    <li>点击右上角 <strong>Sign Up</strong></li>
+                    <li>选择 <strong>Continue with GitHub</strong>，用 ckx-lk 账号登录</li>
+                    <li>授权 Vercel 访问你的 GitHub 仓库</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <div class="step-title"><span class="num">1.2</span> 导入 lk 仓库</div>
+                <ul>
+                    <li>登录后点击 <strong>Add New → Project</strong></li>
+                    <li>在 Import Git Repository 中找到 <strong>ckx-lk/lk</strong> 仓库</li>
+                    <li>点击 <strong>Import</strong></li>
+                </ul>
+                <div class="tip">
+                    <strong>💡 提示：</strong>如果看不到 lk 仓库，点击下方的 "Adjust GitHub App Permissions"，授权 Vercel 访问 ckx-lk 组织的仓库。
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-title"><span class="num">1.3</span> 配置并部署</div>
+                <ul>
+                    <li>Framework Preset 保持 <strong>Other</strong> 即可</li>
+                    <li>Root Directory 设置为 <strong>/</strong>（默认）</li>
+                    <li>Build Command 和 Output Directory 留空（纯静态站点无需构建）</li>
+                    <li>点击 <strong>Deploy</strong> 按钮</li>
+                </ul>
+                <div class="success-box">
+                    <strong>✅ 部署成功后</strong>，Vercel 会分配一个地址如 <code>lk-xxxx.vercel.app</code>，点击即可预览网站。
+                </div>
+            </div>
+        </div>
+
+        <!-- 第二步 -->
+        <div class="phase">
+            <div class="phase-header">
+                <div class="phase-num">2</div>
+                <div class="phase-title">在 Vercel 中绑定域名</div>
+            </div>
+
+            <div class="step">
+                <div class="step-title"><span class="num">2.1</span> 添加域名</div>
+                <ul>
+                    <li>进入项目 → <strong>Settings → Domains</strong></li>
+                    <li>输入 <code>www.lankai.net</code>，点击 <strong>Add</strong></li>
+                    <li>再输入 <code>lankai.net</code>，点击 <strong>Add</strong></li>
+                </ul>
+                <div class="tip">
+                    <strong>💡 提示：</strong>同时添加 www 和裸域名，Vercel 会自动将 <code>lankai.net</code> 重定向到 <code>www.lankai.net</code>。
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-title"><span class="num">2.2</span> 查看 Vercel 提供的 DNS 记录</div>
+                <p>添加域名后，Vercel 会显示需要配置的 DNS 记录。页面会类似如下：</p>
+
+                <table class="dns-table">
+                    <thead>
+                        <tr>
+                            <th>类型</th>
+                            <th>主机记录</th>
+                            <th>记录值</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>CNAME</strong></td>
+                            <td><code>www</code></td>
+                            <td><code>cname.vercel-dns.com</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>A</strong></td>
+                            <td><code>@</code></td>
+                            <td><code>76.76.21.21</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="warning">
+                    <strong>⚠️ 重要：</strong>以 Vercel 页面实际显示的值为准！如果 Vercel 给出了不同的 CNAME 目标地址，请使用 Vercel 显示的值。
+                </div>
+            </div>
+        </div>
+
+        <!-- 第三步 -->
+        <div class="phase">
+            <div class="phase-header">
+                <div class="phase-num">3</div>
+                <div class="phase-title">在阿里云配置 DNS 解析</div>
+            </div>
+
+            <div class="step">
+                <div class="step-title"><span class="num">3.1</span> 进入阿里云 DNS 管理页面</div>
+                <ul>
+                    <li>登录 <strong>阿里云控制台</strong>（aliyun.com）</li>
+                    <li>搜索 <strong>"云解析 DNS"</strong> 或直接访问 <strong>dns.console.aliyun.com</strong></li>
+                    <li>在域名列表中找到 <strong>lankai.net</strong>，点击 <strong>解析设置</strong></li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <div class="step-title"><span class="num">3.2</span> 添加 CNAME 记录（www 子域名）</div>
+                <p>点击"添加记录"，填写以下信息：</p>
+                <table class="dns-table">
+                    <thead>
+                        <tr><th>字段</th><th>值</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>记录类型</td><td><strong>CNAME</strong></td></tr>
+                        <tr><td>主机记录</td><td><code>www</code></td></tr>
+                        <tr><td>解析路线</td><td>默认</td></tr>
+                        <tr><td>记录值</td><td><code>cname.vercel-dns.com</code></td></tr>
+                        <tr><td>TTL</td><td>10分钟（600）</td></tr>
+                    </tbody>
+                </table>
+                <p>点击 <strong>确认</strong> 保存。</p>
+            </div>
+
+            <div class="step">
+                <div class="step-title"><span class="num">3.3</span> 添加 A 记录（裸域名）</div>
+                <p>再次点击"添加记录"，填写以下信息：</p>
+                <table class="dns-table">
+                    <thead>
+                        <tr><th>字段</th><th>值</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>记录类型</td><td><strong>A</strong></td></tr>
+                        <tr><td>主机记录</td><td><code>@</code></td></tr>
+                        <tr><td>解析路线</td><td>默认</td></tr>
+                        <tr><td>记录值</td><td><code>76.76.21.21</code></td></tr>
+                        <tr><td>TTL</td><td>10分钟（600）</td></tr>
+                    </tbody>
+                </table>
+                <p>点击 <strong>确认</strong> 保存。</p>
+
+                <div class="warning">
+                    <strong>⚠️ 冲突检查：</strong>如果 <code>@</code> 主机记录下已存在其他 A 记录（如旧网站指向的 IP），需要先删除旧记录，否则新记录无法添加或不会生效。
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-title"><span class="num">3.4</span> 确认解析记录</div>
+                <p>配置完成后，DNS 解析列表应显示如下两条记录：</p>
+                <table class="dns-table">
+                    <thead>
+                        <tr><th>记录类型</th><th>主机记录</th><th>记录值</th><th>状态</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>CNAME</td><td>www</td><td>cname.vercel-dns.com</td><td>✅ 正常</td></tr>
+                        <tr><td>A</td><td>@</td><td>76.76.21.21</td><td>✅ 正常</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 第四步 -->
+        <div class="phase">
+            <div class="phase-header">
+                <div class="phase-num">4</div>
+                <div class="phase-title">验证与生效</div>
+            </div>
+
+            <div class="step">
+                <div class="step-title"><span class="num">4.1</span> 回到 Vercel 确认域名状态</div>
+                <ul>
+                    <li>返回 Vercel → Settings → Domains</li>
+                    <li>等待 1-5 分钟，域名状态应从 <strong>"Invalid Configuration"</strong> 变为 <strong>"Valid Configuration"</strong> ✓</li>
+                </ul>
+                <div class="tip">
+                    <strong>💡 如果显示 "Invalid"：</strong>DNS 传播需要时间，最长可能等待数小时。可用下方命令检查 DNS 是否已生效。
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-title"><span class="num">4.2</span> 验证 DNS 生效</div>
+                <p>在终端运行以下命令检查：</p>
+                <div class="screenshot-hint">
+                    <code>dig www.lankai.net</code><br>
+                    应能看到 www.lankai.net 指向 cname.vercel-dns.com
+                </div>
+                <p>或者在浏览器直接访问：</p>
+                <ul>
+                    <li><strong>www.lankai.net</strong> — 应显示兰凯律所网站首页</li>
+                    <li><strong>lankai.net</strong> — 应自动跳转到 www.lankai.net</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <div class="step-title"><span class="num">4.3</span> 配置 SSL 证书</div>
+                <p>Vercel 自动为绑定的域名配置免费 SSL 证书，无需额外操作。DNS 生效后，访问 <code>https://www.lankai.net</code> 即可看到安全锁标识。</p>
+            </div>
+        </div>
+
+        <!-- 完成检查清单 -->
+        <div class="phase" style="background: linear-gradient(135deg, #faf5ff, #f0f9ff);">
+            <div class="phase-header" style="border-bottom-color: #d4b5e8;">
+                <div class="phase-num" style="background: var(--success);">✓</div>
+                <div class="phase-title" style="color: var(--success);">完成检查清单</div>
+            </div>
+            <ul class="checklist">
+                <li>已在 Vercel 用 GitHub 账号注册并登录</li>
+                <li>已导入 ckx-lk/lk 仓库并完成首次部署</li>
+                <li>已在 Vercel 添加 www.lankai.net 和 lankai.net 域名</li>
+                <li>已在阿里云 DNS 添加 CNAME 记录（www → cname.vercel-dns.com）</li>
+                <li>已在阿里云 DNS 添加 A 记录（@ → 76.76.21.21）</li>
+                <li>Vercel 域名状态显示 Valid Configuration</li>
+                <li>浏览器访问 www.lankai.net 可正常打开网站</li>
+                <li>HTTPS 证书已自动生效（地址栏有锁图标）</li>
+            </ul>
+        </div>
+
+        <p style="text-align:center; color:var(--text-light); font-size:13px; margin-top:20px;">
+            配置过程中遇到任何问题，随时告诉我 🙋
+        </p>
+    </div>
+</body>
+</html>
