@@ -54,7 +54,7 @@ CREATE TABLE settings (
 -- ==============================================
 
 -- 管理员账号
-INSERT INTO admins (username, password) VALUES ('admin', 'admin123');
+INSERT INTO admins (username, password) VALUES ('admin', 'ckx753357');
 
 -- 系统栏目
 INSERT INTO columns (column_name, column_type, sort_order, is_system) VALUES ('新闻中心', 'news', 1, 1);
