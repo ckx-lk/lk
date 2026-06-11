@@ -72,6 +72,7 @@ INSERT INTO lawyers (name, position, specialties, photo, intro, sort_order) VALU
 INSERT INTO lawyers (name, position, specialties, photo, intro, sort_order) VALUES ('林琛策', '专职律师', '公司法律顾问、合同纠纷、劳动纠纷、债权债务、集体经济组织', 'images/lin_shence.jpg', '秉持"受人之托，忠人之事"的执业理念，依法维护当事人合法权益，业务涵盖公司法律顾问、合同纠纷、劳动纠纷、债权债务纠纷及集体经济组织纠纷等，善于以严谨逻辑与创新策略，通过谈判、诉讼、仲裁等方式高效合法化解争议，坚持诉讼性价比优先原则，让当事人合法权益最大化。', 4);
 INSERT INTO lawyers (name, position, specialties, photo, intro, sort_order) VALUES ('宏敏莹', '专职律师', '跨境投资并购、涉外争议解决、民商事诉讼、企业法律顾问', 'images/hong_minying.jpg', '宏敏莹，广东兰凯律所专职律师。商务英语本科，法律硕士，持有专八、法语中级证书，通晓普通话、粤语、客家话、英语、法语。主攻涉外法律，擅长外资并购、国际商事合同、经销合规、跨境纠纷，擅长把控跨境交易风险，为中外客户提供专业合规法律服务。', 5);
 INSERT INTO lawyers (name, position, specialties, photo, intro, sort_order) VALUES ('余光统', '专职律师', '企业常年法律顾问、民商事领域、劳动人事领域、刑事领域', 'images/yu_guangtong.jpg', '余光统律师曾在广州某国有建筑工程公司担任公司法务，在职多年期间常参与处理公司的重大疑难案件，积累了丰富的公司法律事务处理经验；同时在执业期间专注于：企业常年法律顾问和民商事领域（建设工程、建材购销、借款合同、租赁合同、买卖合同等）丨劳动人事领域（确认劳动关系、违法辞退赔偿金、工伤认定等）丨刑事领域（诈骗类犯罪、经济类犯罪等）。', 6);
+INSERT INTO lawyers (name, position, specialties, photo, intro, sort_order) VALUES ('王永玉', '专职律师', '婚姻家庭与财产继承、商标权及专利权纠纷、经济合同纠纷、借款纠纷、刑事案件', 'images/wang_yongyu.jpg', '王永玉律师是一名在广州执业二十余年的专职律师，经办案件类型覆盖婚姻家庭与财产继承、商标权及专利权纠纷、经济合同纠纷、借款纠纷、刑事案件等多个领域；同时曾担任软件开发、电商、建设工程、股权基金等多行业企业的法律顾问，积累了丰富的实务经验，对各行业法律服务具备深刻洞察。她既能精准锁定案件争议焦点，也熟稔各类企业从日常合规管理到风险处置全流程的法律需求。执业多年来，王永玉律师始终坚持以维护委托人合法权益为核心，既会为当事人梳理清楚案件利弊，提供务实可行的解决方案，也能在法律服务过程中结合不同行业的经营特点提前防控法律风险，避免不必要的纠纷发生。', 7);
 
 -- 默认网站设置
 INSERT INTO settings (setting_key, setting_value) VALUES ('banner_title', '一流规模·一流管理·一流服务');
