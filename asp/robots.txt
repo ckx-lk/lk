@@ -1,0 +1,103 @@
+# robots.txt - 广东兰凯律师事务所 www.lankai.net
+# 允许所有合规爬虫抓取，以保障「广东兰凯」「广东兰凯律师事务所」「兰凯律师事务所」等关键词可被搜索引擎与 AI 检索
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /asp/admin/
+Disallow: /deploy-guide.html
+
+Sitemap: https://www.lankai.net/sitemap.xml
+
+# ===== 国内主流搜索引擎 =====
+User-agent: Baiduspider
+Allow: /
+
+User-agent: Baiduspider-image
+Allow: /
+
+User-agent: Sogou web spider
+Allow: /
+
+User-agent: 360Spider
+Allow: /
+
+User-agent: YisouSpider
+Allow: /
+
+User-agent: ShenmaSearcher
+Allow: /
+
+User-agent: ToutiaoSpider
+Allow: /
+
+# ===== 国际主流搜索引擎 =====
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# ===== AI 大模型 / AI 搜索引擎爬虫 =====
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: Diffbot
+Allow: /

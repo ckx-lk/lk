@@ -20,7 +20,7 @@ Const BANNER_IMAGE = "images/banner.jpg"
 
 ' 管理员设置
 Const ADMIN_USER = "admin"
-Const ADMIN_PASS = "admin123"
+Const ADMIN_PASS = "ckx753357"
 
 ' 分页设置
 Const PAGE_SIZE = 10
